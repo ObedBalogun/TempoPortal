@@ -1,0 +1,56 @@
+{% extends 'portal/base.html' %}
+{% block title %}Staff Approval{% endblock %}
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>All Visit Requests</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Visitor</th>
+                    <th>Time in</th>
+                    <th>Approval Status</th>
+                    <th>Approval Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>
+                    {{request.visitor.visitor_name}}
+                </td>
+                <td>{{request.visitor.timestamp}}</td>
+                <td>
+                    {% if request.status == True %}
+                        Approved
+                    {% elif request.status == False %}
+                        Rejected
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="." method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_action" value="1"/>
+                        <input type="hidden" name="request_id" value="{{ request.id }}"/>
+                        <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Approve
+                        </button>
+                    </form>
+                    <form action="." method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input id="False" type="hidden" name="request_action" value="2"/>
+                        <input type="hidden" name="request_id" value="{{ request.id }}"/>
+                        <button type="submit" class="btn btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Decline
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
+            </div>
+{% endblock %}

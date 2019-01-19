@@ -1,0 +1,14 @@
+{% extends 'portal/base.html' %}
+{% block title %}Visitors Portal{% endblock %}
+{% block body %}
+{%load staticfiles%}
+<form class="form-signin text-center" action="." method="post">
+    <h1 class="h3 mb-3 font-weight-normal" id="label">Tempo Visitor Form </h1>
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+
+    <a href="{% static 'portal/all_requests.html'%}"><button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button></a>
+</form>
+{%endblock%}

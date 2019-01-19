@@ -1,0 +1,60 @@
+{% extends 'portal/base.html' %}
+{%block title%}All Requests{%endblock%}
+{%block body%}
+<div class="printDiv">
+    <h1 id="vtag">Visitor Tag</h1>
+    <b class="label">Visitor Name: </b><span id="pfName"></span>
+    <p></p>
+    <b class="label">Staff to See: </b><span id="plName"></span>
+    <p></p>
+    <b class="label">Visit Type: </b><span id="pvType"></span>
+</div>
+
+<div class="otherDiv">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h3>All Visitors</h3>
+
+             <table class="table">
+                <thead>
+                <tr>
+                    <td>Visitor Name</td>
+                    <td>Staff To See</td>
+                    <td>Time in</td>
+                    <td>Approval Status</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
+                <tbody>
+                {%for request in requests%}
+                <tr>
+                    <td>{{request.visitor.visitor_name}}</td>
+                    <td>{{request.staff.staff_name}}</td>
+                    <td>{{request.visitor.timestamp}}</td>
+                    <td>
+                        {% if request.status == True %}
+                                Approved
+                                {% elif request.status == False %}
+                                Rejected
+                                {% else %}
+                                Pending
+                                {% endif %}
+                    </td>
+                    <td><button type="submit" class="btn btn-danger btn-xs" onclick="printForm('{{request.visitor.visitor_name}}','{{request.staff.staff_name}}','{{request.visit_type}}')">Print</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function printForm(fName,lName,vName){
+        document.getElementById('pfName').innerHTML = fName;
+        document.getElementById('plName').innerHTML = lName;
+        document.getElementById('pvType').innerHTML = vName;
+        console.log(fName,lName);
+        window.print();
+        return false;
+    }
+</script>
+{%endblock%}

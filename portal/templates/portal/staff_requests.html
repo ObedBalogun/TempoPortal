@@ -1,0 +1,40 @@
+{% extends 'portal/base.html' %}
+{% block title %}{{ Staff }}{% endblock %}
+{% block body %}
+{%load staticfiles%}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>All {{staff.staff_name}}'s Visitors</h3>
+         <table class="table">
+            <thead>
+            <tr>
+                <th>Visitor</th>
+                <th>Staff To See</th>
+                <th>Approval Status</th>
+                <th>Time in</th>
+            </tr>
+            </thead>
+            <tbody>
+          {%for request in requests%}
+           <tr>
+                <td>
+                    {{request.visitor.visitor_name}}
+                </td>
+                <td>{{request.staff.staff_name}}</td>
+                <td>{% if request.status == True %}
+                    Approved
+                    {% elif request.status == False %}
+                    Rejected
+                    {% else %}
+                    Pending
+                    {% endif %}
+                </td>
+                <td>{{request.visitor.timestamp}}</td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{%endblock%}
