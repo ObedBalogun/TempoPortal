@@ -6,7 +6,7 @@ from sendgrid.helpers.mail import Email,Content,Mail
 import sendgrid
 from django.utils.translation import ugettext as _
 from django.contrib import messages
-sg = sendgrid.SendGridAPIClient()
+
 # Create your views here.
 def formpage(request):
     if request.method =="POST":
