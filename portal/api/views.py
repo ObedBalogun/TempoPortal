@@ -15,4 +15,4 @@ class PortalCreateView(generics.CreateAPIView):
     serializer_class = StaffSerializer
 
     def get_queryset(self):
-        return Staff.objects,all()
+        return Staff.objects.all()
